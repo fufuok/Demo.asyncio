@@ -23,22 +23,21 @@ def producer():
         return ips
 
 
-async def consumer(ip, count=5, timeout=3):
+async def consumer(ip, timeout=3):
     """消费者, PING IP"""
     print('--- is consumer', ip, threading.currentThread())
-    # for i in range(count):
     try:
         delay = await aioping.ping(ip, timeout=timeout) * 1000
-        print(ip, delay)
+        return ip, delay
     except TimeoutError:
-        print(ip, 0)
+        return ip, 0
 
 
-async def tasks(ips):
-    tasks = [asyncio.ensure_future(consumer(ip, 3)) for ip in ips for i in range(5)]
+async def run_tasks(tasks):
+    """完成一个即打印一个"""
     for task in asyncio.as_completed(tasks):
         res = await task
-        print(res)
+        print('completed:', res)
 
 
 def main():
@@ -47,8 +46,11 @@ def main():
     ips = producer()
     loop = asyncio.get_event_loop()
     tasks = [asyncio.ensure_future(consumer(ip, 3)) for ip in ips for i in range(5)]
-    loop.run_until_complete(asyncio.gather(*tasks))
-    # loop.run_until_complete(tasks(ips))
+
+    loop.run_until_complete(run_tasks(tasks))
+
+    # res = loop.run_until_complete(asyncio.gather(*tasks))
+    # print('all completed:', res)
 
     print('the end: {}s'.format(time.perf_counter() - stime))
 

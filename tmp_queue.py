@@ -12,10 +12,10 @@ import threading
 
 def worker():
     while True:
-        item = q.get()
-        if item is None:
+        _item = q.get()
+        if _item is None:
             break
-        print(item)
+        print(_item)
         q.task_done()
 
 
