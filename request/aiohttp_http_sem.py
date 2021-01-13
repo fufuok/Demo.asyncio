@@ -45,6 +45,8 @@ def main(worker):
     loop = asyncio.get_event_loop()
     loop.run_until_complete(aio_init(sem))
 
+    loop.close()
+
 
 if __name__ == '__main__':
     # 0.4903281

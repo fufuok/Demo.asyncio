@@ -52,6 +52,8 @@ def main(worker):
     #     print(task.result())
     # print('all completed:', res)
 
+    loop.close()
+
 
 if __name__ == '__main__':
     # 0.56679879

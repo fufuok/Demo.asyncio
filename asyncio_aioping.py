@@ -52,6 +52,8 @@ def main():
     # res = loop.run_until_complete(asyncio.gather(*tasks))
     # print('all completed:', res)
 
+    loop.close()
+
     print('the end: {}s'.format(time.perf_counter() - stime))
 
 

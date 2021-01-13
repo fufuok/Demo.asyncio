@@ -61,6 +61,8 @@ def main(worker):
     # 1.
     # loop = asyncio.get_event_loop()
     # loop.run_until_complete(aio_init(worker))
+    # loop.run_until_complete(aio_init_sem(worker))
+    # loop.close()
 
     # 2. Python 3.7+ aiohttp limit 限制并发
     # asyncio.run(aio_init(worker))
