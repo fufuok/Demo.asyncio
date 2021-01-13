@@ -16,7 +16,7 @@ from concurrent.futures import ThreadPoolExecutor
 from util import run_perf, gen_url
 
 
-def requests_get_url(sess, url):
+def requests_get_url(url, sess):
     """使用 requests 请求 url (阻塞 IO)"""
     try:
         r = sess.get(url)
@@ -40,7 +40,7 @@ def main(max_worker):
     loop = asyncio.get_event_loop()
     pool = ThreadPoolExecutor(max_worker)
 
-    tasks = [loop.run_in_executor(pool, requests_get_url, sess, url) for url in gen_url(20)]
+    tasks = [loop.run_in_executor(pool, requests_get_url, url, sess) for url in gen_url(20)]
     loop.run_until_complete(run_tasks(tasks))
 
     loop.close()
