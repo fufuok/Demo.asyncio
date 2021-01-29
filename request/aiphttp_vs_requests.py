@@ -33,10 +33,9 @@ async def aio_get_url(url, sess):
 
 
 async def aio_init():
-    conn = aiohttp.TCPConnector(ssl=False)
-    async with aiohttp.ClientSession(connector=conn) as sess:
+    async with aiohttp.ClientSession() as sess:
         tasks = [aio_get_url(url, sess) for url in gen_url(20)]
-        return await asyncio.wait(tasks)
+        return await asyncio.gather(*tasks)
 
 
 @run_perf
@@ -53,7 +52,7 @@ def run_requests():
 
 
 if __name__ == '__main__':
-    # 1.030242
+    # 0.4834093
     run_aiohttp()
 
     # 5.0316202
