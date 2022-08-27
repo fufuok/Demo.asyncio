@@ -19,11 +19,18 @@
 15. asyncio + requests + ThreadPoolExecutor
 16. grequests(requests + gevent)
 17. asyncio + aiohttp + Semaphore
+18. [request] (目录中包含 https 的并发请求示例, 基于 asyncio)
+
+## 注意
+
+代码中 `pool` `loop` 等在实际使用结束时请调用 `shutdown()` 或 `close()` 等方法主动释放资源. 
+
+在不复用 `pool` 的场景, 常用做法是使用 `with ... as pool:` 来避免显式调用结束指令.
 
 ## 说明
 
-近期有个大量 PING IP 的事务, 适合并发执行, 之前 Shell.Demo 里有 Shell 方案.
+示例代码基于 Python3.6+, 但 Python3.9+ 新增的一些特性就可能没有演示了.
+
+近期有个大量 PING IP 的事务, 适合并发执行, 之前 [Demo.shell](https://github.com/fufuok/Demo.shell) 里有 Shell 方案.
 
 顺便写些 Python 中各类并发代码, 备忘.
-
-补充了一些 https 的并发请求示例, 基于 asyncio.
